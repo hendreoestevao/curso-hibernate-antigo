@@ -45,6 +45,12 @@ public class Usuario {
     })
     private Endereco endereco;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "logradouro", column = @Column(name = "log")),
+            @AttributeOverride(name = "cidade", column = @Column(name = "cid")),
+            @AttributeOverride(name = "numero", column = @Column(name = "num"))
+    })
     private Endereco enderecoComercial;
 
     public Integer getId() {

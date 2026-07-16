@@ -27,6 +27,12 @@ public class Main {
 
         usuario.setEndereco(endereco);
 
+        Endereco enderecoComercial = new Endereco();
+        enderecoComercial.setLogradouro("Rua teste C");
+        enderecoComercial.setNumero(12345);
+        enderecoComercial.setCidade("Cidade Teste C");
+        usuario.setEnderecoComercial(enderecoComercial);
+
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -34,6 +40,11 @@ public class Main {
         session.save(usuario);
 
         session.getTransaction().commit();
+
+       Usuario usuarioBanco = session.get(Usuario.class, usuario.getId());
+        System.out.println(usuarioBanco.getNome());
+
+
 
         session.close();
     }
