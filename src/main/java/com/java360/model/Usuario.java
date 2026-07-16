@@ -3,19 +3,25 @@ package com.java360.model;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //@Entity(name = "usu_usuario")
 @Entity
@@ -39,19 +45,25 @@ public class Usuario {
     @Column(name = "estado_civil")
     private EstadoCivil estadoCivil;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "logradouro", column = @Column(name = "rua"))
-    })
-    private Endereco endereco;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "usu_endereco", joinColumns = @JoinColumn(name = "id_usuario"))
+    private List<Endereco> enderecos = new ArrayList<>();
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "logradouro", column = @Column(name = "log")),
-            @AttributeOverride(name = "cidade", column = @Column(name = "cid")),
-            @AttributeOverride(name = "numero", column = @Column(name = "num"))
-    })
-    private Endereco enderecoComercial;
+
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "logradouro", column = @Column(name = "rua"))
+//    })
+//    private Endereco endereco;
+//
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "logradouro", column = @Column(name = "log")),
+//            @AttributeOverride(name = "cidade", column = @Column(name = "cid")),
+//            @AttributeOverride(name = "numero", column = @Column(name = "num"))
+//    })
+//    private Endereco enderecoComercial;
+
 
     public Integer getId() {
         return id;
@@ -94,19 +106,12 @@ public class Usuario {
         this.estadoCivil = estadoCivil;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public Endereco getEnderecoComercial() {
-        return enderecoComercial;
-    }
-
-    public void setEnderecoComercial(Endereco enderecoComercial) {
-        this.enderecoComercial = enderecoComercial;
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 }
