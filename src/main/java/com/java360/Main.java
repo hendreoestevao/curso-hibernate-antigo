@@ -1,6 +1,7 @@
 package com.java360;
 
 
+import com.java360.model.Endereco;
 import com.java360.model.EstadoCivil;
 import com.java360.model.Usuario;
 import org.hibernate.Session;
@@ -18,6 +19,13 @@ public class Main {
         usuario.setDataNascimento(new Date());
         usuario.setIdade(30);
         usuario.setEstadoCivil(EstadoCivil.CASADO);
+
+        Endereco endereco = new Endereco();
+        endereco.setLogradouro("Rua teste");
+        endereco.setNumero(123);
+        endereco.setCidade("Cidade Teste");
+
+        usuario.setEndereco(endereco);
 
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();

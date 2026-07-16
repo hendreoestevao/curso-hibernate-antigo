@@ -1,6 +1,9 @@
 package com.java360.model;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,6 +38,14 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_civil")
     private EstadoCivil estadoCivil;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "logradouro", column = @Column(name = "rua"))
+    })
+    private Endereco endereco;
+
+    private Endereco enderecoComercial;
 
     public Integer getId() {
         return id;
@@ -75,5 +86,21 @@ public class Usuario {
 
     public void setEstadoCivil(EstadoCivil estadoCivil) {
         this.estadoCivil = estadoCivil;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Endereco getEnderecoComercial() {
+        return enderecoComercial;
+    }
+
+    public void setEnderecoComercial(Endereco enderecoComercial) {
+        this.enderecoComercial = enderecoComercial;
     }
 }
