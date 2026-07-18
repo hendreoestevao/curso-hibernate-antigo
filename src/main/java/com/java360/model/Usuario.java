@@ -9,13 +9,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //@Entity(name = "usu_usuario")
 @Entity
@@ -39,9 +44,15 @@ public class Usuario {
     @Column(name = "estado_civil")
     private EstadoCivil estadoCivil;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_veiculo")
-    private Veiculo veiculo;
+    @OneToMany(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "id_usuario")
+    @JoinTable(name = "nome_tabela",
+    joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_veiculo"))
+    private List<Veiculo> veiculos = new ArrayList<Veiculo>();
+
+    //@OneToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "id_veiculo")
 
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @JoinTable(name = "usu_endereco", joinColumns = @JoinColumn(name = "id_usuario"))
@@ -104,16 +115,16 @@ public class Usuario {
         this.estadoCivil = estadoCivil;
     }
 
-    public Veiculo getVeiculo() {
-        return veiculo;
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
     }
 
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
+    public void setVeiculos(List<Veiculo> veiculos) {
+        this.veiculos = veiculos;
     }
 
 
-    // public List<Endereco> getEnderecos() {
+// public List<Endereco> getEnderecos() {
     //    return enderecos;
     // }
 

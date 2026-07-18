@@ -22,8 +22,14 @@ public class Main {
         usuario.setEstadoCivil(EstadoCivil.CASADO);
 
         Veiculo veiculo = new Veiculo("Fusca", 1966);
-        usuario.setVeiculo(veiculo);
+        Veiculo veiculo2 = new Veiculo("Brasilia", 1980);
+      //  veiculo.setUsuario(usuario);
+       // veiculo2.setUsuario(usuario);
+
+        usuario.getVeiculos().add(veiculo);
+        usuario.getVeiculos().add(veiculo2);
         veiculo.setUsuario(usuario);
+        veiculo2.setUsuario(usuario);
 
 //        Endereco endereco = new Endereco();
 //        endereco.setLogradouro("Rua teste");
@@ -44,7 +50,9 @@ public class Main {
         session.beginTransaction();
 
         session.save(usuario);
-       // session.save(veiculo);
+      // session.save(veiculo);
+//      session.save(veiculo2);
+
         session.getTransaction().commit();
 
 //        Usuario usuarioBanco = session.get(Usuario.class, 3);
